@@ -85,6 +85,7 @@ const obtenPacientesAsignadosAPediatria = (pacientes: Pacientes[]): Pacientes[] 
     return pacientesPediatria;
 
 };
+console.log(obtenPacientesAsignadosAPediatria);
 
 //Queremos extraer la lista de pacientes asignados a Pediatría y que tengan una edad menor de 10 años
 
@@ -94,6 +95,7 @@ const obtenPacientesAsignadosAPediatriaYMenorDeDiezAnios = (pacientes: Pacientes
 
     return pacientesPediatriaMenores;
 };
+console.log(obtenPacientesAsignadosAPediatriaYMenorDeDiezAnios);
 
 //Apartado 2
 //Queremos activar el protocolo de urgencia si cualquier de los pacientes tiene un 
@@ -105,6 +107,7 @@ const activarProtocoloUrgencia = (pacientes: Pacientes[]): boolean => {
 
     return activarProtocolo;
 };
+console.log(activarProtocoloUrgencia);
 
 //Apartado 3
 //El pediatra no puede atender hoy a los pacientes, queremos reasignar los pacientes asignados a la especialidad de pediatría a la de medico de familia.
@@ -122,6 +125,7 @@ const reasignaPacientesAMedicoFamilia = (pacientes: Pacientes[]): Pacientes[] =>
 
     return reasignarPacientes;
 };
+console.log(reasignaPacientesAMedicoFamilia);
 
 //Apartado 4
 // Queremos saber si podemos mandar al Pediatra a casa (si no tiene pacientes asignados), comprobar si en la lista hay algún paciente asignado a pediatría
@@ -132,3 +136,36 @@ const HayPacientesDePediatria = (pacientes: Pacientes[]): boolean => {
 
     return asignarPacientesPediatria;
 };
+console.log(HayPacientesDePediatria);
+
+//Apartado 5
+//Queremos calcular el número total de pacientes que están asignados a la especialidad de Medico de familia, y lo que están asignados a Pediatría y a cardiología
+
+interface NumeroPacientesPorEspecialidad {
+    medicoDeFamilia: number;
+    pediatria: number;
+    cardiologia: number;
+}
+
+const cuentaPacientesPorEspecialidad = (pacientes: Pacientes[] ): NumeroPacientesPorEspecialidad => {
+    
+    const pacientePorTipoEspecialidad: NumeroPacientesPorEspecialidad = {
+        cardiologia: 0,
+        medicoDeFamilia: 0,
+        pediatria: 0
+    };
+
+    const resultado: NumeroPacientesPorEspecialidad = pacientes.reduce((acc, paciente) => {
+        if (paciente.especialidad === 'Cardiólogo') {
+            acc.cardiologia++;
+        } else if (paciente.especialidad === 'Medico de familia') {
+            acc.medicoDeFamilia++;
+        } else if (paciente.especialidad === 'Pediatra') {
+            acc.pediatria++;
+        }
+        return acc;
+    }, pacientePorTipoEspecialidad);
+
+    return resultado;
+};
+console.log(cuentaPacientesPorEspecialidad(pacientes))
